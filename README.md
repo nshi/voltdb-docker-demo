@@ -1,7 +1,5 @@
 VoltDB Demo Docker Image
 ===============
 
-Make sure that the VoltDB kit directory is named "voltdb" in the current
-directory.
-
-Run the `build.sh` script to build the docker image.
+Run the `build.sh` script to build the docker image. The script takes one
+argument, which is the download URL of the VoltDB community edition.
