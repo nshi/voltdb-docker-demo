@@ -6,6 +6,8 @@ import json
 import os
 import sys
 
+ALL_APPS = 'all'
+
 def parse_path(path):
     """Parse URL path into API components
     """
@@ -23,7 +25,13 @@ def check_directory(name):
     """Check if the app directory exists in the current working directory
     """
 
-    return os.path.exists(name)
+    if name == ALL_APPS:
+        return True
+    else:
+        return os.path.exists(name)
+
+def stop_demo():
+    os.system('killall -9 java')
 
 def perform_action(name, action):
     """Perform the action in the demo application directory.
@@ -31,9 +39,12 @@ def perform_action(name, action):
     """
 
     if action == 'demo':
+        stop_demo()
         # start the demo
-        os.system('killall -9 java')
         os.system('cd %s && ./run.sh demo &' % name)
+        return True
+    elif action == 'stop':
+        stop_demo()
         return True
     else:
         return False
@@ -43,6 +54,9 @@ class SimpleRestHandler(SimpleHTTPRequestHandler):
         SimpleHTTPRequestHandler.__init__(self, request, client_address, server)
 
     def do_POST(self):
+        """The API path has the form /api/version/appname/action
+        """
+
         api_req = parse_path(self.path)
         err_code = 200
         # response contains either the dashboard location or an error message
@@ -58,7 +72,7 @@ class SimpleRestHandler(SimpleHTTPRequestHandler):
                 err_code = 400
                 resp['error'] = 'Failed to %s %s' % (api_req['action'], api_req['resource'])
 
-            if err_code == 200:
+            if err_code == 200 and api_req['resource'] != ALL_APPS:
                 resp['location'] = '/%s/web' % api_req['resource']
 
         self.send_response(err_code)

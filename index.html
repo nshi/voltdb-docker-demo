@@ -17,7 +17,11 @@
     <![endif]-->
   </head>
   <body>
-    <center><h1>VoltDB Demo Applications</h1></center>
+    <center>
+      <h1>VoltDB Demo Applications</h1>
+      <a class="btn btn-primary btn-sm"
+         href="javascript:launch('all', 'stop');">Stop All Demo</a>
+    </center>
 
     <div class="container">
       <div class="row">
@@ -78,10 +82,12 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script>
-      function launch(name) {
+      function launch(name, op) {
+        var action = typeof op !== 'undefined' ? op : "demo";
+
         $('#loadingModal').modal('show');
 
-        $.post("/api/0.1/" + name + "/demo")
+        $.post("/api/0.1/" + name + "/" + action)
          .done(function(data) {
            window.location = data.location;
          })
