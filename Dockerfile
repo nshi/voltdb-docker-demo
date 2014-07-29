@@ -4,6 +4,7 @@ MAINTAINER Ning Shi <nshi@voltdb.com>
 # Public VoltDB ports
 EXPOSE 8080
 EXPOSE 8081
+EXPOSE 9000
 EXPOSE 21211
 EXPOSE 21212
 
