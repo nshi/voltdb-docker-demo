@@ -7,6 +7,7 @@ import os
 import sys
 
 ALL_APPS = 'all'
+EXAMPLES = 'examples'
 
 def parse_path(path):
     """Parse URL path into API components
@@ -28,7 +29,7 @@ def check_directory(name):
     if name == ALL_APPS:
         return True
     else:
-        return os.path.exists(name)
+        return os.path.exists(os.path.join(EXAMPLES, name))
 
 def stop_demo():
     os.system('killall -9 java')
@@ -41,7 +42,7 @@ def perform_action(name, action):
     if action == 'demo':
         stop_demo()
         # start the demo
-        os.system('cd %s && ./run.sh demo &' % name)
+        os.system('cd %s && ./run.sh demo &' % os.path.join(EXAMPLES, name))
         return True
     elif action == 'stop':
         stop_demo()
@@ -73,7 +74,7 @@ class SimpleRestHandler(SimpleHTTPRequestHandler):
                 resp['error'] = 'Failed to %s %s' % (api_req['action'], api_req['resource'])
 
             if err_code == 200 and api_req['resource'] != ALL_APPS:
-                resp['location'] = '/%s/web' % api_req['resource']
+                resp['location'] = '/%s/web' % os.path.join(EXAMPLES, api_req['resource'])
 
         self.send_response(err_code)
         self.send_header('Content-Type', self.extensions_map['.json'])

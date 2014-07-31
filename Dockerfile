@@ -17,11 +17,11 @@ ENV VOLTDB_DIST /opt/voltdb
 ENV PATH $PATH:$VOLTDB_DIST/bin
 
 ADD voltdb $VOLTDB_DIST
-ADD index.html $VOLTDB_DIST/examples/
-ADD web.py $VOLTDB_DIST/examples/
+ADD index.html $VOLTDB_DIST/
+ADD web.py $VOLTDB_DIST/
 
 RUN apt-get update
 RUN apt-get install -y procps python openjdk-7-jre-headless
 
-WORKDIR /opt/voltdb/examples/
+WORKDIR /opt/voltdb
 CMD ["python", "web.py", "8081"]
