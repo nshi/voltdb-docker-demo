@@ -89,7 +89,9 @@
 
         $.post("/api/0.1/" + name + "/" + action)
          .done(function(data) {
-           window.location = data.location;
+           if (data.location != undefined) {
+             window.location = data.location;
+           }
          })
          .fail(function(data) {
            alert("Failed: " + data.responseJSON.error);
