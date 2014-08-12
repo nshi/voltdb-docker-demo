@@ -26,7 +26,7 @@ while read i; do
     fi
     pushd "$outdir"
     ./run.sh demo-compile
-    if [ $? != 0 ]; then exit; fi
+    if [ $? != 0 ]; then exit $?; fi
     popd
 done < apps.txt
 
