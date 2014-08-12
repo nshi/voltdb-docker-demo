@@ -12,19 +12,19 @@ function help() {
 if [ $# -ne 1 ]; then help; exit; fi
 
 # download volt and unpacks it to voltdb/ first
-rm -rf $VOLTDIST
-mkdir $VOLTDIST
-curl -sL $1 | tar xzC $VOLTDIST --strip-components 1
+rm -rf "$VOLTDIST"
+mkdir "$VOLTDIST"
+curl -sL $1 | tar xzC "$VOLTDIST" --strip-components 1
 
 # download all apps and compile them, apps are listed in apps.txt
 while read i; do
     outdir=$example_dir/$i
     # if the app is already there, skip the download
-    if [ ! -d $outdir ]; then
-        mkdir $outdir
-        curl -sL `printf $download_path $i` | tar xzC $outdir --strip-components 1
+    if [ ! -d "$outdir" ]; then
+        mkdir "$outdir"
+        curl -sL `printf $download_path $i` | tar xzC "$outdir" --strip-components 1
     fi
-    pushd $outdir
+    pushd "$outdir"
     ./run.sh demo-compile
     if [ $? != 0 ]; then exit; fi
     popd
