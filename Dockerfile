@@ -22,7 +22,7 @@ ADD web.py $VOLTDB_DIST/
 
 RUN apt-get update
 RUN apt-get install -qy --no-install-recommends \
-  procps python openjdk-7-jre-headless
+  procps psmisc python openjdk-7-jre-headless
 
 WORKDIR /opt/voltdb
 CMD ["python", "web.py", "8081"]
