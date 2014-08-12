@@ -18,7 +18,11 @@ Run the `build.sh` script to build the docker image. The script takes one
 argument, which is the download URL of the VoltDB community edition.
 
 Once the image is successfully built, you can run it using the following command
-> docker run -p 8080:8080 -p 8081:8081 -d --name voltdb-demo nshi/voltdb
+```bash
+docker run -p 8080:8080 -p 8081:8081 -d --name voltdb-demo nshi/voltdb
+```
 
 To push the image to the Docker Registry, do
-> docker push nshi/voltdb
+```bash
+docker push nshi/voltdb
+```
