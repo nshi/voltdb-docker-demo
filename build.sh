@@ -31,4 +31,4 @@ while read i; do
 done < apps.txt
 
 # build the docker image
-docker build --force-rm=true -t nshi/voltdb .
+docker build --force-rm=true -t voltdb/voltdb-demo .
